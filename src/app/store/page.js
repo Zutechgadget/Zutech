@@ -128,7 +128,7 @@ const Store = () => {
 </div>
     </div>
     <div className="col">
-    <div className='iphonethree card-1 '>
+    <div className='iphonethree  card-1 '>
     <p>Buy iPhone 14 Pro max</p>
     <br/>
         <br/>
@@ -179,6 +179,7 @@ const Store = () => {
 <div className='ipadtwo card-1'>
 <p>Buy iPad Pro 11 Inch</p>
 <br/>
+<p>iPad Pro 11 Inch</p>
         <br/>
         <br/>
         <br/>

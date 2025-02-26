@@ -13,7 +13,13 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000", methods: "GET,POST,PUT,DELETE" }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://apple-nx.vercel.app"], // Allow both origins
+    methods: "GET,POST,PUT,DELETE",
+  })
+);
+
 app.use(express.json());
 
 // Use Routes
