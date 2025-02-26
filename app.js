@@ -1,35 +1,26 @@
-const mongoose = require ('mongoose')
-const  express = require ('express')
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/db");
 
-
-const cors = require('cors');
+// Import routes
+const categoryRoutes = require("./routes/categoryRoutes");
+const productRoutes = require("./routes/productRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 
-// Allow requests from the frontend running on localhost:3000
-app.use(cors({
-  origin: 'http://localhost:3000', // Your Next.js frontend
-  methods: 'GET,POST,PUT,DELETE',
-}));
-const categoryRoute = require('./src/app/api/products/routes/categorys')
-const productRoute = require('./src/app/api/products/routes/products')
+// Connect to MongoDB
+connectDB();
 
-
-
-
-mongoose.connect('mongodb://localhost/apple')
-.then(() =>console.log('Connected to MongoDB...'))
-.catch(err => console.log('Could not connect to MongoDB...', err))
-
-
-// middleware
+// Middleware
+app.use(cors({ origin: "http://localhost:3000", methods: "GET,POST,PUT,DELETE" }));
 app.use(express.json());
 
-app.use('/api/categorys', categoryRoute)
-app.use('/api/products', productRoute )
+// Use Routes
+app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/users", userRoutes);
 
-
-
-const port = process.env.PORT || 8700
-
-app.listen(port, () => console.log (`listening on port ${port}`))
+// Start Server
+const port = process.env.PORT || 8700;
+app.listen(port, () => console.log(`Server running on port ${port}...`));

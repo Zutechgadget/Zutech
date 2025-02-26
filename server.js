@@ -32,8 +32,8 @@ app.prepare().then(() => {
   });
 
   // Start the server on port 3000
-  server.listen(3000, (err) => {
+  server.listen(3500, (err) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3000');
+    console.log('> Ready on http://localhost:3500');
   });
 });

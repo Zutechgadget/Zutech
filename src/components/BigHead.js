@@ -31,30 +31,49 @@ const BigHead = () => {
 <Link href="/ipad" className="nav-link p-3">iPad</Link>
 <Link href="/airpod" className="nav-link p-3">AirPods</Link>
 <Link href="/accessories" className="nav-link p-3">Accessories</Link>
-<Link href="/support" className="nav-link p-3">Support</Link>
+<Link href="/admindashboard" className="nav-link p-3">Support</Link>
 
             </div>
 
             {/* Search and Cart Icons */}
             <div className="col flex-d">
-              <div className="py-2 px-5">
-                <i className="bx bx-search fs-2"></i>
+              <div className="py-2 px-5 d-flex">
+           
                 <i className="bx bx-shopping-bag fs-2"></i>
+<div>
+<Link href="/login" className="nav-link">  <i className='bx bx-user-circle fs-2'></i></Link>
+</div>
               </div>
             </div>
 
             {/* Mobile Menu Icon */}
-            <i className="bx bx-menu fs-1 flex-h fox" onClick={handleMenu}></i>
+                            {/* Search and Cart Icons */}
+                   <div className="col flex-h">
+              <div className="py-2 px-5 d-flex fox">
+
+                <i className="bx bx-shopping-bag fs-1"></i>
+                <i className="bx bx-menu fs-1 flex-h " onClick={handleMenu}></i>
+<div>
+<Link href="/login" className="nav-link">  <i className='bx bx-user-circle fs-1'></i></Link>
+</div>
+              </div>
+            </div>
+            
+
           </div>
         </div>
       </nav>
 
+
+   
+
+
       {/* Mobile Menu Dropdown */}
       {menu && (
-        <div className="container">
+        <div className="container text-start">
           <div className="row">
             <div className="col flex-h text-start">
-              <Link href="/store" className="nav-link p-3">
+              <Link href="/store" className="nav-link p-3 text-start">
                 Store
               </Link>
               <Link href="/mac" className="nav-link p-3">
@@ -76,6 +95,8 @@ const BigHead = () => {
                 Support
               </Link>
             </div>
+
+
           </div>
         </div>
       )}

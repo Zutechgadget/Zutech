@@ -1,8 +1,8 @@
 import React from 'react'
-import Image from "next/image";
-import AirMac from "../assets/images/Rectangle_4.png";
+
+
 import '../styles/App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
+
 
 function Main() {
 
@@ -13,8 +13,8 @@ function Main() {
 
 <div className="container text-start my-1 mac-con">
   <div className="row dir-2">
-    <div className="col ">
-   <div className='w-75'>
+    <div className="col  ">
+   <div className='w-75 my-3'>
    <h2 className='air'> MacBooK Air </h2>
     <small className='air-width'> The new 15‑inch MacBook Air makes room for more of what you love with a spacious Liquid Retina display. 
         And with the 13‑inch model, you have more reasons than ever to choose Air.
@@ -30,14 +30,10 @@ function Main() {
 
 
 
-    <Image 
-  src="/_next/static/media/Rectangle_4.c1b2c9f7.png" 
-  alt="Description of the image"
-  width={700}
-  height={500}
-  className='w-100'
-  priority // This tells Next.js to prioritize loading this image
-/>
+
+<div className='mac-1'>
+
+</div>
 
     
     </div>

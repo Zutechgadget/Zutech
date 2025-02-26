@@ -36,7 +36,7 @@
   
   }
   .slide{
-    background-image: url('../assets/images/Rectangle_10.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_10_xbogsp.png');
     background-position:center;
     background-size:auto;
     width: 417px;
@@ -47,7 +47,7 @@
   
   }
   .slide-2{
-    background-image: url('../assets/images/Rectangle_12.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_12_rm6mpb.png');
     background-position:center;
     background-size:auto;
     width: 407px;
@@ -58,7 +58,7 @@
   
   }
   .slide-3{
-    background-image: url('../assets/images/Rectangle_12_1.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_12_1_j7zazj.png');
     background-position:center;
     background-size:auto;
     width: 417px;
@@ -94,7 +94,7 @@
     height: 6px;
   }
   .iphone{
-    background-image: url('../assets/images/Rectangle_39.png');
+    background-image: url('https://i.ibb.co/yFR4r1xm/Rectangle-30.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -108,8 +108,9 @@
   box-shadow: 0px 4px 4px 0px #00000040;
   
   }
+  /*'https://res.cloudinary.com/drbiup2zg/image/upload/v1740560493/Rectangle_41_wwjo3j.png'*/
   .iphonetwo{
-    background-image: url('../assets/images/Rectangle_41.png');
+    background-image: url('https://i.ibb.co/hxGJv3j9/Rectangle-41.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -139,8 +140,16 @@
   
   
   }
+  .mac-1{
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_4_nf2133.png');
+    background-position:center;
+    background-size: auto;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 400px;
+  }
   .mac{
-    background-image: url('../assets/images/Rectangle_36.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740561707/Rectangle_36_zc6dvx.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -155,7 +164,7 @@
   
   }
   .mactwo{
-    background-image: url('../assets/images/Rectangle_37.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740562218/Rectangle_38_juhopr.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -170,7 +179,7 @@
   
   }
   .macthree{
-    background-image: url('../assets/images/Rectangle_38.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740562218/Rectangle_37_qbqa8q.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -185,7 +194,7 @@
   
   }
   .ipad{
-    background-image: url('../assets/images/Rectangle_42.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740562644/Rectangle_42_tkahzj.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -200,7 +209,7 @@
   
   }
   .ipadtwo{
-    background-image: url('../assets/images/Rectangle_43.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740562644/Rectangle_44_gkzfwd.png');
     background-position: center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -215,7 +224,7 @@
   
   }
   .ipadthree{
-    background-image: url('../assets/images/Rectangle_44.png');
+    background-image: url('https://res.cloudinary.com/drbiup2zg/image/upload/v1740562644/Rectangle_43_bswnax.png');
     background-position: center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -230,7 +239,7 @@
   
   }
   .iphonethree{
-    background-image: url('../assets/images/Rectangle_39.png');
+    background-image: url('https://i.ibb.co/yFR4r1xm/Rectangle-30.png');
     background-position:center;
     background-size: auto;
     background-repeat: no-repeat;
@@ -313,7 +322,36 @@
     margin-left:900px ;
   }
   .fox{
-    margin-left: 300px;
+    margin-left: 180px;
+  }
+  
+
+  .order-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .order-summary {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .address-form input, .address-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
   }
   
   
