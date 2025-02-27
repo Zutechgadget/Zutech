@@ -5,7 +5,8 @@ import axios from "axios";
 import "boxicons/css/boxicons.min.css";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
-
+import "@/styles/page.module.css"; 
+import styles from "@/styles/page.module.css";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -130,7 +131,8 @@ const handleCheckout = () => {
 
       {/* Show all products */}
       {!selectedProduct && !showCart && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        
+        <div className="productCard" style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
           {products.map((product) => (
             <div
               key={product._id}
@@ -142,8 +144,11 @@ const handleCheckout = () => {
                 textAlign: "center",
                 cursor: "pointer",
               }}
-            >
-              <img src={product.image} alt={product.name} style={{ width: "100%", height: "auto" }} />
+           >
+                        <div className={`card ${styles.productCard}`}> 
+                        <img src={product.image} className={`card-img-top ${styles.productImage}`} alt={product.name} />
+                        </div>
+              {/* <img src={product.image} alt={product.name} style={{ width: "100%", height: "auto" }} /> */}
               <h2>{product.name}</h2>
               <p>{product.description}</p>
               <p><strong>Price:</strong> ${product.price}</p>
@@ -171,4 +176,5 @@ const handleCheckout = () => {
   );
 };
 
-export default ProductList;
+export default   ProductList;
+

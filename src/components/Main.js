@@ -1,5 +1,5 @@
 import React from 'react'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import '../styles/App.css'
 
@@ -26,12 +26,21 @@ function Main() {
          <button className='btn box-btn mx-2'> 13 Inch M1</button>
 </div>
     </div>
-    <div className="col ">
+
+
+    
+    <div className="col  ">
 
 
 
 
-<div className='mac-1'>
+<div className='  px-1'>
+<img className='w-100' style={{
+    width: "496px",
+    height: "396px", 
+  borderradius: "30px 0px 0px 0px",
+  opacity: "0px"}} alt=''
+  src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_4_nf2133.png'/>
 
 </div>
 
@@ -41,12 +50,17 @@ function Main() {
   </div>
 </div>
 
-<div className="container text-start my-4 mx-4">
+<div className="container text-start  raw  my-4 ">
   <div className="row">
-    <div className="col my-3">
-
- <div className='slide-2 '>
-<div className=' px-2'>
+  <div className="col col-lg-4 0 col-sm-12 my-3">
+    <div className='box-main w-100 '>
+      <img style={{
+    width: "100%",
+    height: "196px", 
+  borderradius: "30px 0px 0px 0px",
+  opacity: "0px"}} alt=''
+  src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_12_1_j7zazj.png'/>
+<div className=' px-2 box-con'>
 <p> Concept</p>
 <h3>20% Save</h3>
 <button className='btn-buy'>Buy Now</button>
@@ -54,19 +68,27 @@ function Main() {
 
  </div>
     </div>
-    <div className="col my-3">
-    <div className='slide-3'>
-<div className='  px-2  '>
-<p> Concept</p>
+    <div className="col col-lg-4 col-sm-12 my-3">
+    <div className='box-main '>
+      <img  alt=''
+  src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_12_rm6mpb.png'/>
+<div className=' px-2 box-con'>
+<p > Concept</p>
 <h3>20% Save</h3>
 <button className='btn-buy'>Buy Now</button>
 </div>
 
  </div>
     </div>
-    <div className="col my-3">
-    <div className='slide '>
-<div className=' px-2'>
+    <div className="col col-lg-4 col-sm-12 my-3">
+    <div className='box-main '>
+      <img style={{
+    width: "100%",
+    height: "196px", 
+  borderradius: "30px 0px 0px 0px",
+  opacity: "0px"}} alt=''
+  src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_10_xbogsp.png'/>
+<div className=' px-2 box-con '>
 <p> Concept</p>
 <h3>20% Save</h3>
 <button className='btn-buy'>Buy Now</button>
