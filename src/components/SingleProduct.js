@@ -8,6 +8,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import "@/styles/page.module.css"; 
 import styles from "@/styles/page.module.css";
 
+
+
+
+
+
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);

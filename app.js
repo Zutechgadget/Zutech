@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
+const connectDB = require("./lib/dbConnect");
 
 // Import routes
 const categoryRoutes = require("./routes/categoryRoutes");
@@ -30,3 +30,7 @@ app.use("/api/users", userRoutes);
 // Start Server
 const port = process.env.PORT || 8700;
 app.listen(port, () => console.log(`Server running on port ${port}...`));
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
