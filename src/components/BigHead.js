@@ -51,8 +51,8 @@ const BigHead = () => {
               <div className="py-2 px-5 d-flex">
                 {/* Cart Icon with Dynamic Count */}
                 <button onClick={() => handleShow(!showCart)}>
-          <i className="bi fs-1 bi-cart3" style={{ fontSize: "24px", color: "black" }}></i>
-          ({cart.length})
+          <i className="bi fs-1 bi-cart3"  style={{  color: "black" }}></i>
+          {cart.length > 0 && <span className="badge fs-6 ">{cart.length}</span>}
         </button>
 
                 <div>

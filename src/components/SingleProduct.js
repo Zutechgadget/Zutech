@@ -62,7 +62,7 @@ const ProductList = () => {
         <h1>Product List</h1>
         <button onClick={() => setShowCart(!showCart)}>
           <i className="bi fs-1 bi-cart3" style={{ fontSize: "24px", color: "skyblue" }}></i>
-          ({cart.length})
+          {cart.length > 0 && <span className="badge fs-6 ">{cart.length}</span>}
         </button>
       </header>
 
