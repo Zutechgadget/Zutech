@@ -5,6 +5,8 @@ import { Button, Card, Form, FormControl, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import "@/styles/App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SingleProduct from "../../components/SingleProduct";
+
 
 export default function AdminDashboard() {
   const [categories, setCategories] = useState([]);
@@ -28,8 +30,9 @@ export default function AdminDashboard() {
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8700/api/categories");
+      const { data } = await axios.get("https://productapi-1-b6y2.onrender.com/api/category");
       setCategories(data);
+      
     } catch (error) {
       console.error("Error fetching categories:", error);
     }
@@ -37,21 +40,49 @@ export default function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8700/api/products");
-      setProducts(data);
+      const response = await axios.get("https://productapi-1-b6y2.onrender.com/api/products"); // ✅ Store the response
+      setProducts(response.data); // ✅ Correct way to access the data
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
+  
 
   // Handles Category Form Submission
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8700/api/categories", categoryForm);
-    fetchCategories();
-    setCategoryForm({ name: "" });
+    try {
+      await axios.post(
+        "https://productapi-1-b6y2.onrender.com/api/category",
+        categoryForm,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is stored in localStorage
+          },
+        }
+      );
+      fetchCategories();
+      setCategoryForm({ name: "" });
+    } catch (error) {
+      console.error("Error adding category:", error);
+    }
   };
 
+  const handleDeleteCategory = async (categoryId) => {
+    if (!window.confirm("Are you sure you want to delete this category?")) return;
+  
+    try {
+      await axios.delete(`https://productapi-1-b6y2.onrender.com/api/category/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      fetchCategories(); // Refresh category list
+    } catch (error) {
+      console.error("Error deleting category:", error);
+    }
+  };
+  
   // Handles Input Changes for Category
   const handleCategoryChange = (e) => {
     setCategoryForm({ ...categoryForm, [e.target.name]: e.target.value });
@@ -66,25 +97,37 @@ export default function AdminDashboard() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.category) {
-      alert("Please select a category");
-      return;
+        alert("Please select a category");
+        return;
     }
     try {
-      await axios.post("http://localhost:8700/api/products", form);
-      fetchProducts();
-      setForm({
-        name: "",
-        category: "",
-        stock: "",
-        description: "",
-        image: "",
-        price: "",
-        ratings: "",
-      });
+        const requestData = {
+            name: form.name,
+            categoryId: form.category, // ✅ Ensure this is the correct field
+            stock: form.stock,
+            description: form.description,
+            image: form.image,
+            price: form.price,
+            ratings: form.ratings
+        };
+
+        console.log("Sending Data:", requestData); // ✅ Debugging
+
+        await axios.post("https://productapi-1-b6y2.onrender.com/api/products", requestData);
+        fetchProducts();
+        setForm({
+            name: "",
+            category: "",
+            stock: "",
+            description: "",
+            image: "",
+            price: "",
+            ratings: "",
+        });
     } catch (error) {
-      console.error("Error adding product:", error);
+        console.error("Error adding product:", error.response?.data || error.message);
     }
-  };
+};
 
   // Handles Selecting a Product for Editing
   const handleEditClick = (product) => {
@@ -96,7 +139,7 @@ export default function AdminDashboard() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8700/api/products/${editingProduct._id}`, form);
+      await axios.put(`https://productapi-1-b6y2.onrender.com/api/products/${editingProduct._id}`, form);
       fetchProducts();
       setEditingProduct(null); // Reset editing mode
       setForm({
@@ -143,12 +186,23 @@ export default function AdminDashboard() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Select name="category" value={form.category} onChange={handleChange} required>
-            <option value="">Select Category</option>
-            {categories.map((cat) => (
-              <option key={cat._id} value={cat._id}>{cat.name}</option>
-            ))}
-          </Form.Select>
+        <Form.Select name="category" value={form.category} onChange={handleChange} required>
+  <option value="">Select a category</option> {/* Default empty option */}
+  {categories.map((cat) => (
+    <option key={cat._id} value={cat._id}>{cat.name}</option>
+  ))}
+</Form.Select>
+<ul className="list-group mt-3">
+  {categories.map((category) => (
+    <li key={category._id} className="list-group-item d-flex justify-content-between align-items-center">
+      {category.name}
+      <Button variant="danger" size="sm" onClick={() => handleDeleteCategory(category._id)}>
+        Delete
+      </Button>
+    </li>
+  ))}
+</ul>
+
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -202,6 +256,8 @@ export default function AdminDashboard() {
           </Col>
         ))}
       </Row>
+
+      <SingleProduct/>
     </div>
   );
 }

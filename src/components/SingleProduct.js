@@ -22,7 +22,7 @@ const ProductList = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://localhost:8700/api/products");
+      const response = await axios.get("https://productapi-1-b6y2.onrender.com/api/products");
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error.message);
@@ -33,7 +33,7 @@ const ProductList = () => {
 
   const fetchProductDetails = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:8700/api/products/${id}`);
+      const response = await axios.get(`https://productapi-1-b6y2.onrender.com/api/products/${id}`);
       setSelectedProduct(response.data);
     } catch (error) {
       console.error("Error fetching product details:", error.message);
@@ -54,20 +54,7 @@ const ProductList = () => {
 
 
 
-  // const handleCheckout = () => {
-  //   if (cart.length === 0) {
-  //     alert("Your cart is empty!");
-  //     return;
-  //   }
-  
-  //   alert("Order placed successfully! 🎉");
-    
-  //   // Clear the cart
-  //   setCart([]);
-  
-  //   // (Optional) Redirect to order page
-  //   // navigate("/order-success");  // Use this if using React Router
-  // };
+
   const router = useRouter();
 
 const handleCheckout = () => {

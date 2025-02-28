@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "boxicons/css/boxicons.min.css";
+import ProductList from "./SingleProduct";
 
 const BigHead = () => {
   const [menu, setMenu] = useState(false);
@@ -70,10 +71,10 @@ const BigHead = () => {
 
       {/* Mobile Menu Dropdown */}
       {menu && (
-        <div className="container text-start">
+        <div className="container mx-3 ">
           <div className="row">
-            <div className="col flex-h text-start">
-              <Link href="/store" className="nav-link p-3 text-start">
+            <div className="col flex-h ">
+              <Link href="/store" className="nav-link p-3 ">
                 Store
               </Link>
               <Link href="/mac" className="nav-link p-3">
@@ -91,7 +92,7 @@ const BigHead = () => {
               <Link href="/accessories" className="nav-link p-3">
                 Accessories
               </Link>
-              <Link href="/support" className="nav-link p-3">
+              <Link href="/admindashboard" className="nav-link p-3">
                 Support
               </Link>
             </div>

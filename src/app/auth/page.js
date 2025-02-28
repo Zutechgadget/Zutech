@@ -31,7 +31,7 @@ export default function Auth() {
     }
   
     try {
-      const { data } = await axios.post(`http://localhost:4400${endpoint}`, form);
+      const { data } = await axios.post(`https://productapi-1-b6y2.onrender.com${endpoint}`, form);
       localStorage.setItem('token', data.token);
       router.push('/dashboard');
     } catch (error) {

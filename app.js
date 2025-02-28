@@ -11,7 +11,7 @@ const app = express();
 
 // Connect to MongoDB
 connectDB();
-
+app.use(cors({ origin: "*" }))
 // Middleware
 app.use(
   cors({

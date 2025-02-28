@@ -1,51 +1,40 @@
-const express = require("express");
-const User = require("../models/userModel");
-const bcrypt = require("bcryptjs");
-
+const express = require('express');
 const router = express.Router();
+const _ = require('lodash');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('config'); // Make sure you have the config package installed: npm install config
 
-// User signup
-router.post("/signup", async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+const auth = require('../middleware/auth');
 
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+const { User, validateUser } = require('../model/user');  // Import validateUser
+
+router.post('/', async (req, res) => {
+    const { error } = validateUser(req.body);  // Use validateUser function
+    if (error) {
+        return res.status(400).send(error.details[0].message);
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // Check if user already exists
+    let user = await User.findOne({ email: req.body.email });
+    if (user) {
+        return res.status(400).send('User already registered.');
+    }
 
     // Create new user
-    const user = new User({ name, email, password: hashedPassword });
-    await user.save();
+    user = new User(_.pick(req.body, ['name', 'email', 'password']));
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
 
-    res.json({ message: "User registered successfully" });
-  } catch (error) {
-    res.status(500).json({ error: "Error signing up user" });
-  }
-});
+    try {
+        await user.save();
+    } catch (err) {
+        return res.status(500).send('Error creating user: ' + err.message);
+    }
 
-// User login
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // Check if user exists
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ error: "Invalid credentials" });
-
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
-
-    res.json({ message: "Login successful", user });
-  } catch (error) {
-    res.status(500).json({ error: "Error logging in user" });
-  }
+    // Send token and user data
+    const token = jwt.sign({ _id: user._id }, config.get('jwtPrivateKey'));
+    res.send({ ..._.pick(user, ['_id', 'name', 'email']), token });
 });
 
 module.exports = router;

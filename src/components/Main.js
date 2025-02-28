@@ -70,7 +70,7 @@ function Main() {
     </div>
     <div className="col col-lg-4 col-sm-12 my-3">
     <div className='box-main '>
-      <img  alt=''
+      <img style={{width: "400px"}} alt=''
   src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_12_rm6mpb.png'/>
 <div className=' px-2 box-con'>
 <p > Concept</p>

@@ -22,7 +22,8 @@ export default function Signup() {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("http://localhost:4400/api/users", form);
+      const { data } = await axios.post("https://productapi-1-b6y2.onrender.com/api/users", form);
+
       localStorage.setItem("token", data.token);
       router.push("/dashboard"); // Redirect after successful signup
     } catch (error) {
@@ -37,7 +38,7 @@ export default function Signup() {
     <div >
         <BigHead />
 
-    <div className="min-h-screen flex items-center justify-center text-center bg-white ">
+    <div className="min-h-screen flex items-center justify-center text-center py-5 my-5 bg-white ">
       <form onSubmit={handleSubmit} className="p-8 bg-white shadow-md rounded-lg">
         <h2 className="text-2xl mb-4 text-center">Sign Up</h2>
         <input
@@ -78,7 +79,7 @@ export default function Signup() {
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>
-        <p className="mt-4 text-center">
+        <p className="mt-5 text-center">
           Already have an account?{" "}
           <a href="/login" className="text-blue-500">
             Login

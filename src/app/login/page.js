@@ -23,7 +23,7 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("http://localhost:4400/api/auth", form);
+      const { data } = await axios.post("https://productapi-1-b6y2.onrender.com/api/auth", form);
       localStorage.setItem("token", data.token);
       router.push("/dashboard"); // Redirect after successful login
     } catch (error) {
@@ -37,7 +37,7 @@ export default function Login() {
   return (
     <div>
         <BigHead className=""/>
-    <div className="min-h-screen flex items-center justify-center text-center bg-white ">
+    <div className="min-h-screen flex items-center justify-center text-center my-5 py-5 bg-white ">
       <form onSubmit={handleSubmit} className="p-8 bg-white  rounded-lg">
         <h2 className="text-2xl mb-4 text-center">Login</h2>
         <input
@@ -69,7 +69,7 @@ export default function Login() {
           {loading ? "Loading..." : "Login"}
           
         </button>
-        <p className="mt-4 text-center">
+        <p className="mt-5 text-center">
           Don't have an account?{" "}
           <a href="/signup" className="text-blue-500">
             Sign Up
