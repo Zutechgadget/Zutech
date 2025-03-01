@@ -1,19 +1,14 @@
-"use client";  // ✅ Ensure this is a client component
+"use client";
 
 import "@/styles/App.css";
-import { useState, useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useState } from "react";
+import { useCart } from "../../components/CartContext"; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const OrderPage = () => {
+  const { cart, clearCart } = useCart(); 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [cart, setCart] = useState([]);
-
-  // Load cart from local storage (assuming cart is stored there)
-  useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCart(storedCart);
-  }, []);
 
   const handlePlaceOrder = () => {
     if (!address || !city) {
@@ -22,23 +17,17 @@ const OrderPage = () => {
     }
 
     alert("Order placed successfully!");
-    // Here you can send order data to your backend
-
-    // Clear cart after order is placed
-    localStorage.removeItem("cart");
-    setCart([]);
+    clearCart(); // ✅ Clear cart globally after placing order
   };
 
-  // Calculate total price
   const total = cart.reduce((sum, item) => sum + item.price, 0);
-  const discount = total * 0.15; // 15% discount
-  const finalTotal = total - discount;
+  const discount = total * 0.15;
+  const finalTotal = total - discount + 50; 
 
   return (
     <div className="order-container">
       <h2>Your Order</h2>
 
-      {/* Order Summary */}
       <div className="order-summary">
         <h3>Order Summary</h3>
         {cart.length === 0 ? (
@@ -61,12 +50,11 @@ const OrderPage = () => {
             <p>Subtotal:  ${total.toLocaleString()}</p>
             <p>Discount (-15%):  ${discount.toLocaleString()}</p>
             <p>Delivery Fee:  $50.00</p>
-            <h4>Total:  ${(finalTotal + 500).toLocaleString()}</h4>
+            <h4>Total:  ${finalTotal.toLocaleString()}</h4>
           </>
         )}
       </div>
 
-      {/* Address Form */}
       <div className="address-form">
         <h3>Delivery Address</h3>
         <input 

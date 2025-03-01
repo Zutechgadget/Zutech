@@ -49,7 +49,7 @@ const ProductList = () => {
     }
     alert("Order placed successfully! 🎉");
     router.push("/order");
-    clearCart();
+   
   };
 
   if (loading) {
