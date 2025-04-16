@@ -9,7 +9,7 @@ const OrderPage = () => {
   const { cart, clearCart } = useCart(); 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [showSuccessImage, setShowSuccessImage] = useState(false); // ✅ New state to show success image
+  const [showSuccessImage, setShowSuccessImage] = useState(false); // ✅  usestate to show success image
 
   const handlePlaceOrder = () => {
     if (!address || !city) {

@@ -1,4 +1,4 @@
-
+import Link from 'next/link'
 import React from 'react'
 
 const Footer = () => {
@@ -8,8 +8,20 @@ const Footer = () => {
         <div className="container text-center py-4">
   <div className="row slide-flex">
     <div className="col">
-<h3></h3>
-<p>6391 Elgin St. Celina, Delaware 10299</p>
+    <div className="col ">
+
+
+
+              <Link href="/" className="nav-link p-3 ">         
+     <img className='rounded' style={{
+    width: "56px",
+    height: "56px", 
+}} alt=''
+  src='https://res.cloudinary.com/dvfiw24p4/image/upload/v1744818978/Screenshot_2025-04-16_at_16.54.47_bky0tu.png'/></Link>
+              
+            </div>
+<p>No	6	OlaAyeni	off	Medical	Road	Computer	Village	Ikeja
+Lagos	Nigeria</p>
 
     </div>
     <div className="col">
