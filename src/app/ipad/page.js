@@ -4,7 +4,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "@/styles/page.module.css";
 
-import Footer from "@/components/Footer";
 import "@/styles/App.css"; 
 
 import { useCart } from "../../components/CartContext";

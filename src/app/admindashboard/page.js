@@ -30,7 +30,7 @@ export default function AdminDashboard() {
 
   const fetchCategories = async () => {
     try {
-      const { data } = await axios.get("https://productapi-1-b6y2.onrender.com/api/category");
+      const { data } = await axios.get("https://zutech-api.onrender.com/api/category");
       setCategories(data);
       
     } catch (error) {
@@ -40,7 +40,7 @@ export default function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("https://productapi-1-b6y2.onrender.com/api/products"); // ✅ Store the response
+      const response = await axios.get("https://zutech-api.onrender.com/api/products"); // ✅ Store the response
       setProducts(response.data); // ✅ Correct way to access the data
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -53,7 +53,7 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       await axios.post(
-        "https://productapi-1-b6y2.onrender.com/api/category",
+        "https://zutech-api.onrender.com/api/category",
         categoryForm,
         {
           headers: {
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
     if (!window.confirm("Are you sure you want to delete this category?")) return;
   
     try {
-      await axios.delete(`https://productapi-1-b6y2.onrender.com/api/category/${categoryId}`, {
+      await axios.delete(`https://zutech-api.onrender.com/api/category/${categoryId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -113,7 +113,7 @@ export default function AdminDashboard() {
 
         console.log("Sending Data:", requestData); // ✅ Debugging
 
-        await axios.post("https://productapi-1-b6y2.onrender.com/api/products", requestData);
+        await axios.post("https://zutech-api.onrender.com/api/products", requestData);
         fetchProducts();
         setForm({
             name: "",
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`https://productapi-1-b6y2.onrender.com/api/products/${editingProduct._id}`, form);
+      await axios.put(`https://zutech-api.onrender.com/api/products/${editingProduct._id}`, form);
       fetchProducts();
       setEditingProduct(null); // Reset editing mode
       setForm({

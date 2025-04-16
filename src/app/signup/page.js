@@ -22,7 +22,7 @@ export default function Signup() {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("https://productapi-1-b6y2.onrender.com/api/users", form);
+      const { data } = await axios.post("https://zutech-api.onrender.com/api/users", form);
 
       localStorage.setItem("token", data.token);
       router.push("/dashboard"); // Redirect after successful signup

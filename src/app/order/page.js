@@ -9,6 +9,7 @@ const OrderPage = () => {
   const { cart, clearCart } = useCart(); 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [showSuccessImage, setShowSuccessImage] = useState(false); // ✅ New state to show success image
 
   const handlePlaceOrder = () => {
     if (!address || !city) {
@@ -16,6 +17,7 @@ const OrderPage = () => {
       return;
     }
 
+    setShowSuccessImage(true); // ✅ Show the image after successful order
     alert("Order placed successfully!");
     clearCart(); // ✅ Clear cart globally after placing order
   };
@@ -76,6 +78,21 @@ const OrderPage = () => {
         <button onClick={handlePlaceOrder} className="btn btn-primary">
           Pay Now
         </button>
+
+        {/* ✅ Show success image only after placing order */}
+        {showSuccessImage && (
+          <img 
+            style={{
+              width: "496px",
+              height: "396px", 
+              borderRadius: "30px 0px 0px 0px",
+              opacity: "1",
+              marginTop: "20px"
+            }} 
+            alt="Order Success"
+            src="https://res.cloudinary.com/dvfiw24p4/image/upload/v1744825238/Screenshot_2025-04-16_at_18.39.32_cwjbyo.png"
+          />
+        )}
       </div>
     </div>
   );

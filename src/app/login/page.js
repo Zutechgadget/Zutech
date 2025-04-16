@@ -23,7 +23,7 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const { data } = await axios.post("https://productapi-1-b6y2.onrender.com/api/auth", form);
+      const { data } = await axios.post("https://zutech-api.onrender.com/api/auth", form);
       localStorage.setItem("token", data.token);
       router.push("/dashboard"); // Redirect after successful login
     } catch (error) {
