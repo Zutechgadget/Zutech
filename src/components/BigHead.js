@@ -75,10 +75,11 @@ const BigHead = () => {
             <div className="col flex-h">
               
               <div className="py-2 px-5 d-flex fox">
-                <i className="bx bx-menu fs-1 flex-h" onClick={handleMenu}></i>
-                <Link href="/login" className="nav-link">
+              <Link href="/login" className="nav-link">
                     <i className='bx bx-user-circle fs-1'></i>
                   </Link>
+                <i className="bx bx-menu fs-1 flex-h" onClick={handleMenu}></i>
+                
                 <div>
                 
                 </div>
