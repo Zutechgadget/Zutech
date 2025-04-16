@@ -219,7 +219,9 @@
   color: black;
   
   }
-  
+  .cart{
+    margin-left: 250px !important;
+  }
   .gridthree{
     background-image: url('../assets/images/Rectangle_16.png');
     background-position:center;

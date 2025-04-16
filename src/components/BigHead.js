@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "boxicons/css/boxicons.min.css";
-import { useCart } from "./CartContext"; // ✅ Ensure the correct path
+import { useCart } from "./CartContext"; 
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const BigHead = () => {
@@ -31,7 +31,16 @@ const BigHead = () => {
           <div className="d-flex w-100">
             {/* Apple Logo */}
             <div className="col apple">
-              <Link href="/" className="nav-link p-3 fs-1"></Link>
+
+
+
+              <Link href="/" className="nav-link p-3 fs-1">         
+     <img className='rounded' style={{
+    width: "56px",
+    height: "56px", 
+ opacity: "0px"}} alt=''
+  src='https://res.cloudinary.com/dvfiw24p4/image/upload/v1744818978/Screenshot_2025-04-16_at_16.54.47_bky0tu.png'/></Link>
+              
             </div>
 
             {/* Navigation Links */}
@@ -47,10 +56,10 @@ const BigHead = () => {
 
             {/* Search and Cart Icons */}
             <div className="col flex-d">
-              <div className="py-2 px-5 d-flex">
+              <div className="py-2 px-5 cart d-flex">
                 {/* Cart Icon with Dynamic Count */}
                 <button onClick={handleShow}>
-                  <i className="bi fs-1 bi-cart3" style={{ color: "black" }}></i>
+                  <i className="bi fs-1  bi-cart3" style={{ color: "black" }}></i>
                   {cart.length > 0 && <span className="badge fs-6">{cart.length}</span>}
                 </button>
 
