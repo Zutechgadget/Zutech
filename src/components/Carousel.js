@@ -10,7 +10,7 @@ const CardImages = [
     url: "https://res.cloudinary.com/dvfiw24p4/image/upload/v1744819957/Screenshot_2025-04-16_at_16.40.36_egzic8.png?v=2",
     alt: "Card 2",
   },
-];
+]; 
 
 const CardCarousel = () => {
   return (
