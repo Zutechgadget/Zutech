@@ -29,7 +29,7 @@ const CardCarousel = () => {
                   boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.15)",
 
                 }}
-                className="img-fluid"
+                className=""
               />
             </div>
           </Carousel.Item>
