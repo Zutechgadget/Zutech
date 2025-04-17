@@ -14,19 +14,20 @@ const CardImages = [
 
 const CardCarousel = () => {
   return (
-    <Container className="mt-3">
-      <Carousel indicators={false} controls={true}>
+    <Container fluid className="my-4 px-3">
+      <Carousel indicators={false} controls={true} interval={3000} fade>
         {CardImages.map((card, index) => (
-          <Carousel.Item key={index} className="text-center p-2">
+          <Carousel.Item key={index}>
             <div className="d-flex justify-content-center">
               <img
                 src={card.url}
                 alt={card.alt}
                 className="img-fluid shadow-lg"
                 style={{
-                  maxWidth: "80%",
+                  maxWidth: "100%",
                   height: "auto",
-                  borderRadius: "30px",
+                  borderRadius: "20px",
+                  objectFit: "cover",
                 }}
               />
             </div>
