@@ -41,18 +41,12 @@ export default function Dashboard() {
  
     <BigHead/>
 
-    <div className="container text-start my-1 mac-con">
-<div className=' text-center px-1'>
-{/* <img className='' style={{
-    width: "496px",
-    height: "396px", 
-  borderradius: "30px 0px 0px 0px",
-  opacity: "0px"}} alt=''
-  src='https://res.cloudinary.com/dvfiw24p4/image/upload/v1744819957/Screenshot_2025-04-16_at_16.40.36_egzic8.png'/> */}
-<CardCarousel/>
-</div>
+  <div className="mb-5 mx-4 text-center pb-5 ">
+  <CardCarousel/>
   </div>
+<div className="mt-5  pt-5">
 <Ipad/>
+</div>
 
     <div className='bg-white'>
     <SingleProduct/>
