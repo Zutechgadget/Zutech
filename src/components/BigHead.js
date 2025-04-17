@@ -59,13 +59,13 @@ const BigHead = () => {
               <div className="py-2 px-5 cart d-flex">
                 {/* Cart Icon with Dynamic Count */}
                 <button onClick={handleShow}>
-                  <i className="bi fs-1  bi-cart3" style={{ color: "black" }}></i>
+                  <i className="bi fs-1  bi-cart3" style={{ fontSize: "24px", color: "skyblue" }}></i>
                   {cart.length > 0 && <span className="badge fs-6">{cart.length}</span>}
                 </button>
 
                 <div>
                   <Link href="/login" className="nav-link">
-                    <i className='bx bx-user-circle fs-2'></i>
+                    <i className='bx bx-user-circle fs-2 py-3' style={{ fontSize: "24px", color: "skyblue" }}></i>
                   </Link>
                 </div>
               </div>

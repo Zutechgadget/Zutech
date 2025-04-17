@@ -40,7 +40,7 @@ function Main() {
     height: "396px", 
   borderradius: "30px 0px 0px 0px",
   opacity: "0px"}} alt=''
-  src='https://res.cloudinary.com/drbiup2zg/image/upload/v1740560859/Rectangle_4_nf2133.png'/>
+  src='https://res.cloudinary.com/dvfiw24p4/image/upload/v1744843703/Screenshot_2025-04-16_at_23.44.01_nf4vkr.png'/>
 
 </div>
 
