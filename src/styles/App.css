@@ -391,7 +391,34 @@
   border: 1px solid #dee2e6;
 }
 
-  
+.order-table-responsive {
+  overflow-x: auto;
+}
+
+.receipt-table th,
+.receipt-table td {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .order-table-responsive .receipt-table {
+    display: none;
+  }
+
+  .order-table-responsive .card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+  }
+
+  .order-table-responsive .card-body {
+    padding: 1rem;
+  }
+
+  .order-table-responsive .card .btn {
+    width: 100%;
+  }
+}
   @media only screen and (max-width: 600px) {
     .nav-header{
       background-color: #f5f5f5;

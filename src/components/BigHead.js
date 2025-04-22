@@ -56,7 +56,7 @@ const BigHead = () => {
             <div className="col flex-d apple">
               <Link href="/store" className="nav-link p-3">Store</Link>
               <Link href="/mac" className="nav-link p-3">Mac</Link>
-              <Link href="/iphone" className="nav-link p-3">iPhone</Link>
+              <Link href="/dashboard" className="nav-link p-3">iPhone</Link>
               <Link href="/ipad" className="nav-link p-3">iPad</Link>
               <Link href="/airpods" className="nav-link p-3">AirPods</Link>
               <Link href="/accessory" className="nav-link p-3">Accessories</Link>
@@ -82,11 +82,12 @@ const BigHead = () => {
             {/* Mobile Menu Icon */}
             <div className="col flex-h">
               <div className="py-2 px-5 d-flex fox">
+              <i className="bx bx-menu fs-1 flex-h" onClick={handleMenu}  style={{ fontSize: "24px", color: "skyblue" }}></i>
                 <Link href={user ? "/accessories" : "/login"} className="nav-link">
                   <i className="bx bx-user-circle fs-1"  style={{ fontSize: "24px", color: "skyblue" }}></i>
                   {user && <span className="ms-2">{user.name || "User"}</span>}
                 </Link>
-                <i className="bx bx-menu fs-1 flex-h" onClick={handleMenu}  style={{ fontSize: "24px", color: "skyblue" }}></i>
+
               </div>
             </div>
           </div>

@@ -33,12 +33,12 @@ export default function AdminDashboard() {
   const [categoryForm, setCategoryForm] = useState({ name: "" });
   const [editingProduct, setEditingProduct] = useState(null);
   const [rejectionReason, setRejectionReason] = useState({});
-  const [openItems, setOpenItems] = useState({}); // State for collapsible items
+  const [openItems, setOpenItems] = useState({});
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
-      console.error("No token found, redirecting to login");
+    if (!token || !user?.isAdmin) {
+      console.error("No token or not an admin, redirecting to login");
       router.push("/login");
       return;
     }
@@ -74,6 +74,7 @@ export default function AdminDashboard() {
         if (err.response?.status === 403 || err.response?.status === 401) {
           console.error("Unauthorized, clearing token and redirecting to login");
           localStorage.removeItem("token");
+          localStorage.removeItem("user");
           router.push("/login");
         }
       }
@@ -226,6 +227,7 @@ export default function AdminDashboard() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to approve order");
@@ -254,6 +256,7 @@ export default function AdminDashboard() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to approve redemption");
@@ -285,6 +288,7 @@ export default function AdminDashboard() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to reject redemption");
@@ -327,7 +331,6 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      {/* Navigation Bar */}
       <Navbar bg="light" expand="lg" className="mb-4">
         <Container>
           <Navbar.Brand as={Link} href="/">
@@ -344,16 +347,7 @@ export default function AdminDashboard() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              {/* <Nav.Link href="/store">Store</Nav.Link>
-              <Nav.Link href="/mac">Mac</Nav.Link>
-              <Nav.Link href="/iphone">iPhone</Nav.Link>
-              <Nav.Link href="/ipad">iPad</Nav.Link>
-              <Nav.Link href="/airpods">AirPods</Nav.Link>
-              <Nav.Link href="/accessories">Account</Nav.Link>
-              <Nav.Link href="/adminorder">adminorder</Nav.Link>
-              */}
-            </Nav>
+            <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link disabled>Welcome, {user.name || "Admin"}!</Nav.Link>
               <Button variant="danger" size="sm" onClick={logout}>
@@ -367,7 +361,6 @@ export default function AdminDashboard() {
       <Container className="p-6">
         <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
 
-        {/* Admin Users List */}
         <Card className="p-4 mb-4 shadow-sm">
           <h5>Admin Users</h5>
           {admins.length > 0 ? (
@@ -383,7 +376,6 @@ export default function AdminDashboard() {
           )}
         </Card>
 
-        {/* Category Form */}
         <div className="mb-8 p-4 my-5 border border-gray-300 shadow rounded">
           <h2 className="text-xl font-semibold mb-4">Create Category</h2>
           <Form onSubmit={handleCategorySubmit} className="space-y-4">
@@ -410,7 +402,6 @@ export default function AdminDashboard() {
           </ul>
         </div>
 
-        {/* Product Form (Add or Update) */}
         <Form onSubmit={editingProduct ? handleUpdate : handleSubmit} className="border p-4 shadow rounded mb-4">
           <h2 className="text-xl font-semibold mb-4">{editingProduct ? "Update Product" : "Add Product"}</h2>
           <Form.Group className="mb-3">
@@ -449,7 +440,6 @@ export default function AdminDashboard() {
           )}
         </Form>
 
-        {/* Products List */}
         <h2 className="text-center mt-5">Products</h2>
         <Row className="mt-3">
           {products.map((product) => (
@@ -470,31 +460,113 @@ export default function AdminDashboard() {
           ))}
         </Row>
 
-        {/* Orders Table */}
         <h2 className="text-2xl font-bold mb-4 mt-8">Transaction Receipts</h2>
-        <Table striped bordered hover className="receipt-table">
-          <thead className="bg-primary text-white">
-            <tr>
-              <th>Order ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Items</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="order-table-responsive">
+          <Table striped bordered hover className="receipt-table d-none d-md-table">
+            <thead className="bg-primary text-white">
+              <tr>
+                <th>Order ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Items</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <>
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>{order.userId?.name || "Unknown"}</td>
+                      <td>{order.userId?.email || "Unknown"}</td>
+                      <td>{order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}</td>
+                      <td>
+                        <Button
+                          variant="link"
+                          onClick={() => toggleItems(order._id)}
+                          aria-controls={`items-${order._id}`}
+                          aria-expanded={openItems[order._id]}
+                        >
+                          {openItems[order._id] ? "Hide Items" : "Show Items"}
+                        </Button>
+                      </td>
+                      <td>${order.totalAmount?.toLocaleString() || "0.00"}</td>
+                      <td>{order.status}</td>
+                      <td>
+                        {order.status !== "Approved" && (
+                          <Button variant="success" onClick={() => approveOrder(order._id)}>
+                            Approve
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                    <tr key={`${order._id}-collapse`}>
+                      <td colSpan="8" className="p-0">
+                        <Collapse in={openItems[order._id]}>
+                          <div id={`items-${order._id}`} className="p-3 bg-light">
+                            {order.items?.length > 0 ? (
+                              <ul className="list-unstyled">
+                                {order.items.map((item, index) => (
+                                  <li key={index} className="d-flex align-items-center mb-2">
+                                    <img
+                                      src={item.image}
+                                      alt={item.name}
+                                      style={{ width: "50px", height: "50px", marginRight: "10px", borderRadius: "5px" }}
+                                    />
+                                    <div>
+                                      <strong>{item.name}</strong>
+                                      <p className="mb-0">Price: ${item.price?.toLocaleString()}</p>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p>No items available</p>
+                            )}
+                          </div>
+                        </Collapse>
+                      </td>
+                    </tr>
+                  </>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center">
+                    No orders available
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+
+          <div className="d-md-none">
             {orders.length > 0 ? (
               orders.map((order) => (
-                <>
-                  <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>{order.userId?.name || "Unknown"}</td>
-                    <td>{order.userId?.email || "Unknown"}</td>
-                    <td>{order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}</td>
-                    <td>
+                <Card key={order._id} className="mb-3 shadow-sm">
+                  <Card.Body>
+                    <div className="mb-2">
+                      <strong>Order ID:</strong> {order._id}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Name:</strong> {order.userId?.name || "Unknown"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Email:</strong> {order.userId?.email || "Unknown"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Address:</strong> {order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Total Amount:</strong> ${order.totalAmount?.toLocaleString() || "0.00"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Status:</strong> {order.status}
+                    </div>
+                    <div className="mb-2">
                       <Button
                         variant="link"
                         onClick={() => toggleItems(order._id)}
@@ -503,22 +575,6 @@ export default function AdminDashboard() {
                       >
                         {openItems[order._id] ? "Hide Items" : "Show Items"}
                       </Button>
-                    </td>
-                    <td>${order.totalAmount?.toLocaleString() || "0.00"}</td>
-                    <td>{order.status}</td>
-                    <td>
-                      {order.status !== "Approved" && (
-                        <Button
-                          variant="success"
-                          onClick={() => approveOrder(order._id)}
-                        >
-                          Approve
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                  <tr key={`${order._id}-collapse`}>
-                    <td colSpan="8" className="p-0">
                       <Collapse in={openItems[order._id]}>
                         <div id={`items-${order._id}`} className="p-3 bg-light">
                           {order.items?.length > 0 ? (
@@ -542,24 +598,27 @@ export default function AdminDashboard() {
                           )}
                         </div>
                       </Collapse>
-                    </td>
-                  </tr>
-                </>
+                    </div>
+                    <div>
+                      {order.status !== "Approved" && (
+                        <Button variant="success" onClick={() => approveOrder(order._id)}>
+                          Approve
+                        </Button>
+                      )}
+                    </div>
+                  </Card.Body>
+                </Card>
               ))
             ) : (
-              <tr>
-                <td colSpan="8" className="text-center">
-                  No orders available
-                </td>
-              </tr>
+              <p className="text-center">No orders available</p>
             )}
-          </tbody>
-        </Table>
+          </div>
+        </div>
 
-        {/* Redemption Info Table */}
+        <h2 className="text-2xl font-bold mb-4 mt-8">Redemption Info</h2>
         <Table striped bordered hover>
           <thead>
-            {/* <tr>
+            <tr>
               <th>Redemption ID</th>
               <th>Product</th>
               <th>User</th>
@@ -567,7 +626,7 @@ export default function AdminDashboard() {
               <th>Status</th>
               <th>Reason</th>
               <th>Actions</th>
-            </tr> */}
+            </tr>
           </thead>
           <tbody>
             {redemptionInfo.length > 0 ? (
@@ -625,7 +684,6 @@ export default function AdminDashboard() {
         <SingleProduct />
       </Container>
 
-      {/* Footer */}
       <Footer>
         <Container>
           <Row>

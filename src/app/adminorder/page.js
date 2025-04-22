@@ -6,7 +6,7 @@ import axios from "axios";
 import { UserContext } from "@/context/UserContext";
 import BigHead from "@/components/BigHead";
 import Footer from "@/components/Footer";
-import { Button, Table, Form, Collapse } from "react-bootstrap";
+import { Button, Table, Form, Collapse, Card } from "react-bootstrap";
 import "@/styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -48,6 +48,7 @@ export default function AdminOrdersPage() {
         if (err.response?.status === 401) {
           console.error("Unauthorized, clearing token and redirecting to login");
           localStorage.removeItem("token");
+          localStorage.removeItem("user");
           router.push("/login");
         }
       }
@@ -77,6 +78,7 @@ export default function AdminOrdersPage() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to approve order");
@@ -105,6 +107,7 @@ export default function AdminOrdersPage() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to approve redemption");
@@ -136,6 +139,7 @@ export default function AdminOrdersPage() {
       if (err.response?.status === 401) {
         console.error("Unauthorized, clearing token and redirecting to login");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         router.push("/login");
       } else {
         setError(err.response?.data?.error || "Failed to reject redemption");
@@ -180,29 +184,112 @@ export default function AdminOrdersPage() {
       <BigHead />
       <div className="container mt-5">
         <h2 className="text-2xl font-bold mb-4">Transaction Receipts</h2>
-        <Table striped bordered hover className="receipt-table">
-          <thead className="bg-primary text-white">
-            <tr>
-              <th>Order ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Items</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="order-table-responsive">
+          <Table striped bordered hover className="receipt-table d-none d-md-table">
+            <thead className="bg-primary text-white">
+              <tr>
+                <th>Order ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Items</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.length > 0 ? (
+                orders.map((order) => (
+                  <>
+                    <tr key={order._id}>
+                      <td>{order._id}</td>
+                      <td>{order.userId?.name || "Unknown"}</td>
+                      <td>{order.userId?.email || "Unknown"}</td>
+                      <td>{order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}</td>
+                      <td>
+                        <Button
+                          variant="link"
+                          onClick={() => toggleItems(order._id)}
+                          aria-controls={`items-${order._id}`}
+                          aria-expanded={openItems[order._id]}
+                        >
+                          {openItems[order._id] ? "Hide Items" : "Show Items"}
+                        </Button>
+                      </td>
+                      <td>${order.totalAmount?.toLocaleString() || "0.00"}</td>
+                      <td>{order.status}</td>
+                      <td>
+                        {order.status !== "Approved" && (
+                          <Button variant="success" onClick={() => approveOrder(order._id)}>
+                            Approve
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                    <tr key={`${order._id}-collapse`}>
+                      <td colSpan="8" className="p-0">
+                        <Collapse in={openItems[order._id]}>
+                          <div id={`items-${order._id}`} className="p-3 bg-light">
+                            {order.items?.length > 0 ? (
+                              <ul className="list-unstyled">
+                                {order.items.map((item, index) => (
+                                  <li key={index} className="d-flex align-items-center mb-2">
+                                    <img
+                                      src={item.image}
+                                      alt={item.name}
+                                      style={{ width: "50px", height: "50px", marginRight: "10px", borderRadius: "5px" }}
+                                    />
+                                    <div>
+                                      <strong>{item.name}</strong>
+                                      <p className="mb-0">Price: ${item.price?.toLocaleString()}</p>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p>No items available</p>
+                            )}
+                          </div>
+                        </Collapse>
+                      </td>
+                    </tr>
+                  </>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="8" className="text-center">
+                    No orders available
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </Table>
+
+          <div className="d-md-none">
             {orders.length > 0 ? (
               orders.map((order) => (
-                <>
-                  <tr key={order._id}>
-                    <td>{order._id}</td>
-                    <td>{order.userId?.name || "Unknown"}</td>
-                    <td>{order.userId?.email || "Unknown"}</td>
-                    <td>{order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}</td>
-                    <td>
+                <Card key={order._id} className="mb-3 shadow-sm">
+                  <Card.Body>
+                    <div className="mb-2">
+                      <strong>Order ID:</strong> {order._id}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Name:</strong> {order.userId?.name || "Unknown"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Email:</strong> {order.userId?.email || "Unknown"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Address:</strong> {order.address && order.city ? `${order.address}, ${order.city}` : "N/A"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Total Amount:</strong> ${order.totalAmount?.toLocaleString() || "0.00"}
+                    </div>
+                    <div className="mb-2">
+                      <strong>Status:</strong> {order.status}
+                    </div>
+                    <div className="mb-2">
                       <Button
                         variant="link"
                         onClick={() => toggleItems(order._id)}
@@ -211,22 +298,6 @@ export default function AdminOrdersPage() {
                       >
                         {openItems[order._id] ? "Hide Items" : "Show Items"}
                       </Button>
-                    </td>
-                    <td>${order.totalAmount?.toLocaleString() || "0.00"}</td>
-                    <td>{order.status}</td>
-                    <td>
-                      {order.status !== "Approved" && (
-                        <Button
-                          variant="success"
-                          onClick={() => approveOrder(order._id)}
-                        >
-                          Approve
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan="8" className="p-0">
                       <Collapse in={openItems[order._id]}>
                         <div id={`items-${order._id}`} className="p-3 bg-light">
                           {order.items?.length > 0 ? (
@@ -250,19 +321,22 @@ export default function AdminOrdersPage() {
                           )}
                         </div>
                       </Collapse>
-                    </td>
-                  </tr>
-                </>
+                    </div>
+                    <div>
+                      {order.status !== "Approved" && (
+                        <Button variant="success" onClick={() => approveOrder(order._id)}>
+                          Approve
+                        </Button>
+                      )}
+                    </div>
+                  </Card.Body>
+                </Card>
               ))
             ) : (
-              <tr>
-                <td colSpan="8" className="text-center">
-                  No orders available
-                </td>
-              </tr>
+              <p className="text-center">No orders available</p>
             )}
-          </tbody>
-        </Table>
+          </div>
+        </div>
 
         <h2 className="text-2xl font-bold mb-4 mt-8">Redemption Info</h2>
         <Table striped bordered hover>
