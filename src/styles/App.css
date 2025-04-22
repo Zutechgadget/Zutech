@@ -297,7 +297,100 @@
     border: none;
     cursor: pointer;
   }
-  
+
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #007bff !important;
+}
+
+.badge {
+  position: relative;
+  top: -10px;
+  right: 10px;
+  background-color: #4B93FF;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.card {
+  max-width: 500px;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  margin-right: 10px;
+}
+
+/* Existing styles */
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+.list-group-item {
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Receipt Table Styles */
+.receipt-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.receipt-table th,
+.receipt-table td {
+  vertical-align: middle;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.receipt-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.receipt-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.receipt-table .btn-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.receipt-table .btn-link:hover {
+  text-decoration: underline;
+}
+
+.receipt-table .bg-light {
+  border-top: 1px solid #dee2e6;
+}
+
+.receipt-table img {
+  object-fit: cover;
+  border: 1px solid #dee2e6;
+}
+
   
   @media only screen and (max-width: 600px) {
     .nav-header{
